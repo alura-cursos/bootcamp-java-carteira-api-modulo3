@@ -1,0 +1,1 @@
+alter table transacoes add foreign key(usuario_id) references usuarios(id);

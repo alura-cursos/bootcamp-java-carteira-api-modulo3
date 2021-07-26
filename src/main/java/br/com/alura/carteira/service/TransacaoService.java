@@ -37,6 +37,7 @@ public class TransacaoService {
 		Usuario usuario = usuarioRepository.getById(idUsuario);
 		
 		Transacao transacao = modelMapper.map(dto, Transacao.class);
+		transacao.setId(null);
 		transacao.setUsuario(usuario);
 		
 		repository.save(transacao);
