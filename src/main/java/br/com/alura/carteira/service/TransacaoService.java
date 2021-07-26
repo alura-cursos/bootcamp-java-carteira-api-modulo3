@@ -19,10 +19,10 @@ public class TransacaoService {
 
 	@Autowired
 	private TransacaoRepository repository;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public Page<TransacaoDto> listar(Pageable paginacao) {
@@ -32,15 +32,17 @@ public class TransacaoService {
 	}
 
 	@Transactional
-	public void cadastrar(TransacaoFormDto dto) {
+	public TransacaoDto cadastrar(TransacaoFormDto dto) {
 		Long idUsuario = dto.getUsuarioId();
 		Usuario usuario = usuarioRepository.getById(idUsuario);
-		
+
 		Transacao transacao = modelMapper.map(dto, Transacao.class);
 		transacao.setId(null);
 		transacao.setUsuario(usuario);
-		
+
 		repository.save(transacao);
+
+		return modelMapper.map(transacao, TransacaoDto.class);
 	}
 
 }
